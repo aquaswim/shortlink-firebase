@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {IFirestoreLink} from '../link.model';
+import {LinkService} from '../link.service';
 
 @Component({
   selector: 'app-redirector',
@@ -11,15 +12,22 @@ export class RedirectorComponent implements OnInit {
   isLoading = true;
   link: IFirestoreLink;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private router: Router, private linkService: LinkService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(async paramMap => {
-      console.log(paramMap.get('id'));
+      const link = await this.linkService.getLinkDetail(paramMap.get('id'));
+      if (!link) {
+        // todo redirect to create page
+        await this.router.navigate(['error', '404']);
+        return;
+      }
+      this.link = link;
+      this.isLoading = false;
     });
   }
 
   goToLink(): void {
-    alert(this.link.destination);
+    window.location.href = this.link.destination;
   }
 }
