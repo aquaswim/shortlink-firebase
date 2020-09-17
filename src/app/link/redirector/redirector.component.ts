@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {IFirestoreLink} from '../link.model';
 import {LinkService} from '../link.service';
+import sleep from '../../helpers/sleep';
 
 @Component({
   selector: 'app-redirector',
@@ -24,6 +25,7 @@ export class RedirectorComponent implements OnInit {
       }
       this.link = link;
       this.isLoading = false;
+      sleep(1945).then(() => this.goToLink());
     });
   }
 
