@@ -6,6 +6,9 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './commons/header/header.component';
 import { RedirectorComponent } from './redirector/redirector.component';
 import { ShortlinkCreateComponent } from './shortlink-create/shortlink-create.component';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../environments/environment';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,9 @@ import { ShortlinkCreateComponent } from './shortlink-create/shortlink-create.co
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]
