@@ -1,0 +1,17 @@
+<div class="columns is-centered">
+  <div class="column is-half" *ngIf="!isLoading">
+    <div class="destination-launch-wrapper has-text-centered">
+      <p class="redirect-message title mb-1">
+        You will be redirected to this page
+      </p>
+      <p class="pb-3 pt-3">
+        <code>{{link.destination}}</code>
+      </p>
+      <button class="button is-primary" (click)="goToLink()">Go to link</button>
+    </div>
+
+  </div>
+  <div class="column is-one-third-desktop is-half-tablet" *ngIf="isLoading">
+    <progress class="progress is-primary" max="100">15%</progress>
+  </div>
+</div>

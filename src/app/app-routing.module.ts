@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {ShortlinkCreateComponent} from './shortlink-create/shortlink-create.component';
-import {RedirectorComponent} from './redirector/redirector.component';
+import {ShortlinkCreateComponent} from './link/shortlink-create/shortlink-create.component';
+import {RedirectorComponent} from './link/redirector/redirector.component';
 import {NotFoundComponent} from './not-found/not-found.component';
 
 const routes: Routes = [
