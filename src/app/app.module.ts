@@ -9,13 +9,15 @@ import { ShortlinkCreateComponent } from './shortlink-create/shortlink-create.co
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     RedirectorComponent,
-    ShortlinkCreateComponent
+    ShortlinkCreateComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
