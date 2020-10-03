@@ -1,1 +1,79 @@
-<p>shortlink-create works!</p>
+<div class="columns is-centered mt-5">
+  <div class="column is-one-third-desktop is-half-tablet" *ngIf="isLoading">
+    <progress class="progress is-primary" max="100">15%</progress>
+  </div>
+  <div class="column is-half" *ngIf="!isLoading">
+    <form *ngIf="!isLinkCreated" [formGroup]="createLinkForm" (ngSubmit)="onCreateLink()">
+      <p class="has-text-centered is-size-3">Create new link</p>
+      <div class="field">
+        <label for="input-slug" class="label">Slug</label>
+        <div class="control">
+          <input id="input-slug"
+                 class="input"
+                 [class.is-danger]="createLinkForm.get('slug').invalid && (createLinkForm.dirty || createLinkForm.untouched)"
+                 [class.is-success]="createLinkForm.get('slug').valid"
+                 type="text"
+                 placeholder="Slug"
+                 formControlName="slug">
+        </div>
+        <div class="error-group" *ngIf="createLinkForm.get('slug').invalid && (createLinkForm.controls.slug.dirty || createLinkForm.controls.slug.touched)">
+          <p class="help is-danger" *ngIf="createLinkForm.hasError('required','slug')">
+            Slug is required
+          </p>
+          <p class="help is-danger" *ngIf="createLinkForm.hasError('minlength','slug')">
+            Slug minimum length is 6
+          </p>
+          <p class="help is-danger" *ngIf="createLinkForm.hasError('pattern','slug')">
+            Slug have forbidden character
+          </p>
+        </div>
+      </div>
+      <div class="field">
+        <label for="input-url" class="label">Target url</label>
+        <div class="control">
+          <input
+            id="input-url"
+            class="input"
+            [class.is-danger]="createLinkForm.get('destination').invalid && (createLinkForm.dirty || createLinkForm.untouched)"
+            [class.is-success]="createLinkForm.get('destination').valid"
+            type="url"
+            placeholder="https://warungkode.net"
+            formControlName="destination">
+        </div>
+        <div
+          *ngIf="createLinkForm.get('destination').invalid && (createLinkForm.dirty || createLinkForm.untouched)"
+          class="error-group">
+          <p class="help is-danger" *ngIf="createLinkForm.hasError('required','destination')">
+            Destination is required
+          </p>
+          <p class="help is-danger" *ngIf="createLinkForm.hasError('pattern','destination')">
+            Destination is not valid url
+          </p>
+        </div>
+      </div>
+      <div class="control">
+        <button class="button is-primary">Create Sort Link</button>
+      </div>
+    </form>
+    <div
+      *ngIf="isLinkCreated"
+      class="card"
+      id="link-result">
+      <div
+        class="card-header">
+        <p class="card-header-title is-size-3">Link Created</p>
+      </div>
+      <div
+        class="card-content">
+        <p>New link has been created</p>
+        <p>Slug: <code>{{createLinkForm.value.slug}}</code></p>
+        <p>Destination: <code>{{createLinkForm.value.destination}}</code></p>
+      </div>
+      <div
+        class="card-footer">
+        <a href="#" class="card-footer-item" (click)="regenerateForm()">Create New</a>
+        <a [routerLink]="createLinkForm.value.slug" class="card-footer-item">Visit Link</a>
+      </div>
+    </div>
+  </div>
+</div>

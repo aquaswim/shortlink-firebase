@@ -8,8 +8,9 @@ import { RedirectorComponent } from './link/redirector/redirector.component';
 import { ShortlinkCreateComponent } from './link/shortlink-create/shortlink-create.component';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
-import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {AngularFirestoreModule, SETTINGS} from '@angular/fire/firestore';
 import { NotFoundComponent } from './not-found/not-found.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,10 +23,19 @@ import { NotFoundComponent } from './not-found/not-found.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: SETTINGS,
+      useValue: environment.production ? undefined : {
+        host: 'localhost:8080',
+        ssl: false
+      }
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
