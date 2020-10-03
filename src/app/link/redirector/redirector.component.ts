@@ -19,8 +19,11 @@ export class RedirectorComponent implements OnInit {
     this.route.paramMap.subscribe(async paramMap => {
       const link = await this.linkService.getLinkDetail(paramMap.get('id'));
       if (!link) {
-        // todo redirect to create page
-        await this.router.navigate(['error', '404']);
+        await this.router.navigate(['/'], {
+          queryParams: {
+            newslug: paramMap.get('id'),
+          }
+        });
         return;
       }
       this.link = link;
