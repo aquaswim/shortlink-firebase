@@ -30,7 +30,14 @@
             "scripts": [],
             "customWebpackConfig": {
               "path": "extra-webpack.config.js"
-            }
+            },
+            "allowedCommonJsDependencies": [
+              "firebase/app",
+              "@firebase/app",
+              "@firebase/firestore",
+              "@firebase/performance",
+              "@firebase/analytics"
+            ]
           },
           "configurations": {
             "production": {

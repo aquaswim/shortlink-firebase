@@ -11,6 +11,8 @@ import {environment} from '../environments/environment';
 import {AngularFirestoreModule, SETTINGS} from '@angular/fire/firestore';
 import { NotFoundComponent } from './not-found/not-found.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import {AngularFirePerformanceModule, PerformanceMonitoringService} from '@angular/fire/performance';
+import {AngularFireAnalyticsModule, ScreenTrackingService} from '@angular/fire/analytics';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import {ReactiveFormsModule} from '@angular/forms';
     AppRoutingModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    AngularFirePerformanceModule,
+    AngularFireAnalyticsModule
   ],
   providers: [
     {
@@ -34,7 +38,9 @@ import {ReactiveFormsModule} from '@angular/forms';
         host: 'localhost:8080',
         ssl: false
       }
-    }
+    },
+    PerformanceMonitoringService,
+    ScreenTrackingService
   ],
   bootstrap: [AppComponent]
 })
