@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {IFirestoreLink, ILinkInput} from './link.model';
-import * as AES from 'crypto-js/aes';
-import * as hexFormat from 'crypto-js/format-hex';
-import * as utf8Encoder from 'crypto-js/enc-utf8';
+import { AES } from 'crypto-es/lib/aes.js';
+import { Utf8 } from 'crypto-es/lib/core.js';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +17,7 @@ export class LinkService {
 
   unlockLink(encrypted, password): any {
     const link = AES.decrypt(encrypted, password);
-    return link.toString(utf8Encoder);
+    return link.toString(Utf8);
   }
 
   async getLinkDetail(id): Promise<IFirestoreLink | null> {
