@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {IFirestoreLink} from '../link.model';
 import {LinkService} from '../link.service';
 import sleep from '../../helpers/sleep';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-redirector',
@@ -12,6 +13,8 @@ import sleep from '../../helpers/sleep';
 export class RedirectorComponent implements OnInit {
   isLoading = true;
   link: IFirestoreLink;
+  inputPasswordForm = new FormControl('');
+  passwordValid = true;
 
   constructor(private route: ActivatedRoute, private router: Router, private linkService: LinkService) { }
 
@@ -28,11 +31,24 @@ export class RedirectorComponent implements OnInit {
       }
       this.link = link;
       this.isLoading = false;
-      sleep(1945).then(() => this.goToLink());
+      if (!this.link.encrypted) {
+        sleep(1945).then(() => this.goToLink());
+      }
     });
   }
 
   goToLink(): void {
     window.location.href = this.link.destination;
+  }
+
+  onUnlockLink(): void {
+    const decryptedLink = this.linkService.unlockLink(this.link.destination, this.inputPasswordForm.value);
+    if (decryptedLink){
+      this.link.destination = decryptedLink;
+      this.link.encrypted = false;
+      sleep(1945).then(() => this.goToLink());
+    } else {
+      this.passwordValid = false;
+    }
   }
 }

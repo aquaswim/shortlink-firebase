@@ -1,6 +1,6 @@
 <div class="columns is-centered mt-5">
   <div class="column is-half" *ngIf="!isLoading">
-    <div class="destination-launch-wrapper has-text-centered">
+    <div *ngIf="!link.encrypted" class="destination-launch-wrapper has-text-centered">
       <p class="redirect-message title mb-1">
         You will be redirected to this page
       </p>
@@ -9,7 +9,33 @@
       </p>
       <button class="button is-primary" (click)="goToLink()">Go to link</button>
     </div>
-
+    <div *ngIf="link.encrypted" class="destination-launch-wrapper has-text-centered">
+      <p class="redirect-message title mb-1">
+        Link is password protected
+      </p>
+      <div class="columns is-centered pt-4">
+        <div class="column is-half">
+          <div class="field has-addons">
+            <div class="control">
+              <input
+                class="input"
+                [class.is-danger]="!passwordValid"
+                type="password"
+                placeholder="Find a repository"
+                [formControl]="inputPasswordForm">
+            </div>
+            <div class="control">
+              <button type="button" class="button is-info" (click)="onUnlockLink()">
+                Unlock
+              </button>
+            </div>
+          </div>
+          <p *ngIf="!passwordValid" class="help is-danger">
+            Password is invalid
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="column is-one-third-desktop is-half-tablet" *ngIf="isLoading">
     <progress class="progress is-primary" max="100">15%</progress>
