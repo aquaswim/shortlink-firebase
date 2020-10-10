@@ -18,7 +18,6 @@ export class ShortlinkCreateComponent implements OnInit {
     slug: new FormControl('', [
       Validators.required,
       Validators.minLength(6),
-      // Validators.pattern(/^$|^[A-Za-z0-9-_]+/gi)
       Validators.pattern(/^[^/\\?&=#]+$/i)
     ])
   });
