@@ -19,7 +19,8 @@ export class ShortlinkCreateComponent implements OnInit {
       Validators.required,
       Validators.minLength(6),
       Validators.pattern(/^[^/\\?&=#]+$/i)
-    ])
+    ]),
+    password: new FormControl('')
   });
 
   isLoading = true;
@@ -56,7 +57,8 @@ export class ShortlinkCreateComponent implements OnInit {
     // generate id
     this.createLinkForm.patchValue({
       slug: slug || this.linkService.generateLinkSlug(),
-      destination: ''
+      destination: '',
+      password: ''
     });
     this.isLinkCreated = false;
   }
