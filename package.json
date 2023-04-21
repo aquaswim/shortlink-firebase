@@ -32,7 +32,7 @@
     "@angular-builders/custom-webpack": "^10.0.1",
     "@angular-builders/dev-server": "^7.3.1",
     "@angular-devkit/architect": ">= 0.900 < 0.1100",
-    "@angular/cli": "~10.1.1",
+    "@angular/cli": "~15.2.6",
     "@angular/compiler-cli": "~10.1.1",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
